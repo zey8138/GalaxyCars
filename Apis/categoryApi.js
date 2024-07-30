@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/jquery/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
@@ -26,10 +26,19 @@ export const categoryApi = createApi({
       }),
     }),
     UpdateCategory: builder.mutation({
-      query:(model)=>({
-        url:
+      query: (model) => ({
+        url: `Category/${model.categoryId}`,
+        method: "PUT",
+        body: model.categoryModel,
       }),
-      query:
     }),
   }),
 });
+
+export const {
+  useGetAllCategoryQuery,
+  useCreateCategoryMutation,
+  useRemoveCategoryMutation,
+  useUpdateCategoryMutation,
+} = categoryApi;
+export default categoryApi;
