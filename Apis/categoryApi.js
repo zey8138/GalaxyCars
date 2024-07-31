@@ -4,8 +4,9 @@ import { useGetVehicleByIdQuery } from "./vehicleApi";
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "",
+    baseUrl: "https://525c-193-140-242-131.ngrok-free.app/api/",
   }),
+
   endpoints: (builder) => ({
     GetAllCategory: builder.query({
       query: () => ({
