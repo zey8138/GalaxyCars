@@ -1,9 +1,14 @@
 import { configureStore, createReducer } from "@reduxjs/toolkit";
 import categoryApi from "../Apis/categoryApi";
 import vehicleApi from "../Apis/vehicleApi";
+import { vehicleReducer } from "./redux/vehicleSlice";
+import { categoryReducer } from "./redux/categorySlice";
 
 export const store = configureStore({
   reducer: {
+    vehicleStore: vehicleReducer,
+    categoryStore: categoryReducer,
+
     [categoryApi.reducerPath]: categoryApi.reducer,
     [vehicleApi.reducerPath]: vehicleApi.reducer,
   },
