@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { useGetVehicleByIdQuery } from "./vehicleApi";
 
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
@@ -32,6 +33,12 @@ export const categoryApi = createApi({
         body: model.categoryModel,
       }),
     }),
+    GetVehicleByCategoryId: builder.query({
+      query: (categoryId) => ({
+        url: `Category/GetVehicles/${categoryId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -40,5 +47,6 @@ export const {
   useCreateCategoryMutation,
   useRemoveCategoryMutation,
   useUpdateCategoryMutation,
+  useGetVehicleByCategoryIdQuery,
 } = categoryApi;
 export default categoryApi;
