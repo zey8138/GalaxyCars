@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { useGetVehicleByIdQuery } from "./vehicleApi";
+
 
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://525c-193-140-242-131.ngrok-free.app/api/",
+    baseUrl: " https://9a4b-94-54-7-11.ngrok-free.app/api/",
   }),
 
   endpoints: (builder) => ({
@@ -34,7 +34,7 @@ export const categoryApi = createApi({
         body: model.categoryModel,
       }),
     }),
-    GetVehicleByCategoryId: builder.query({
+    GetVehiclesByCategoryId: builder.query({
       query: (categoryId) => ({
         url: `Category/GetVehicles/${categoryId}`,
         method: "GET",
@@ -48,6 +48,6 @@ export const {
   useCreateCategoryMutation,
   useRemoveCategoryMutation,
   useUpdateCategoryMutation,
-  useGetVehicleByCategoryIdQuery,
+  useGetVehiclesByCategoryIdQuery,
 } = categoryApi;
 export default categoryApi;

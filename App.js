@@ -3,29 +3,30 @@ import { StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
 import { store } from "./Storage/store";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import CategoryList from "./Screens/CategoryList";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import HomePage from "./Screens/HomePage";
+import CategoryOverview from "./Screens/CategoryOverview";
+
 
 export default function App() {
 
   const Drawer = createDrawerNavigator();
 
-  function CategoryOverview(){
-    return (
-      <Drawer.Navigator initialRouteName='Category' >
-        <Drawer.Screen name='Kategoriler' component={Category} ></Drawer.Screen>
-
-      </Drawer.Navigator>
-    )
-  }
-
-
-
   return (
     <>
       <Provider store={store}>
-        <View style={styles.container}>
-          <Text>Hello My Galaxy</Text>
-          <StatusBar style="auto" />
-        </View>
+        <NavigationContainer>
+
+          <Drawer.Navigator initialRouteName='HomePage' >
+            <Drawer.Screen name='Home Page' component={HomePage} ></Drawer.Screen>
+            <Drawer.Screen name='Categories' component={CategoryOverview} ></Drawer.Screen>
+
+          </Drawer.Navigator>
+
+
+        </NavigationContainer>
       </Provider>
     </>
   );
