@@ -45,8 +45,7 @@ function HomePage() {
       email: userModel.email,
       password: userModel.password,
     };
-    var response = CheckIsTrueUser(loginModel);
-    console.log(response);
+    CheckIsTrueUser(loginModel).then((value) => console.log(value));
     setVisibleModal(false);
   };
 
@@ -80,23 +79,19 @@ function HomePage() {
           component={VehicleManage}
         />
       </Tab.Navigator>
-      <Modal visible={visibleModal} onRequestClose={removeModalClick}>
+      <Modal visible={visibleModal}>
         <View style={styles.viewStyleOne}>
           <View style={styles.viewStyleTwo}>
             <TextInput
               placeholder=" Enter Your Email "
               onChangeText={inputChangeHandler.bind(this, "email")}
-            >
-              {" "}
-            </TextInput>
+            ></TextInput>
           </View>
           <View style={styles.viewStyleTwo}>
             <TextInput
               placeholder=" Enter Your Password "
               onChangeText={inputChangeHandler.bind(this, "password")}
-            >
-              {" "}
-            </TextInput>
+            ></TextInput>
           </View>
         </View>
         <Button onPress={checkRoleClick} title="Check Role"></Button>
