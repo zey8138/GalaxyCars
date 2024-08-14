@@ -13,15 +13,40 @@ import VehicleManage from "./VehicleScreens/VehicleManage";
 import Home from "./Home";
 import { useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useCheckIsTrueUserMutation } from "../Apis/accountApi";
 
 function HomePage() {
   const Tab = createBottomTabNavigator();
   const [visibleModal, setVisibleModal] = useState(false);
+  const [CheckIsTrueUser] = useCheckIsTrueUserMutation();
+  const [userModel, setUserModel] = useState({
+    email: "",
+    password: "",
+  });
+
   const handleCategoryClick = () => {
     console.log("trigger handleCategoryClick");
     setVisibleModal(true);
   };
-  const removeModalClick = () => {
+
+  function inputChangeHandler(inputIdentifier, enteredValue) {
+    setUserModel((currentInputValue) => {
+      return {
+        ...currentInputValue,
+        [inputIdentifier]: enteredValue,
+      };
+    });
+    console.log("usermodel");
+
+    console.log(userModel.email);
+  }
+  const checkRoleClick = () => {
+    const loginModel = {
+      email: userModel.email,
+      password: userModel.password,
+    };
+    var response = CheckIsTrueUser(loginModel);
+    console.log(response);
     setVisibleModal(false);
   };
 
@@ -36,34 +61,45 @@ function HomePage() {
           }}
         />
         <Tab.Screen
-          name="CategoryManage" options={{
+          name="CategoryManage"
+          options={{
             tabBarIcon: ({}) => <Ionicons name="clipboard"></Ionicons>,
           }}
-          component={CategoryManage  }
+          component={CategoryManage}
           listeners={({ navigation, route }) => ({
             tabPress: (e) => {
               handleCategoryClick();
             },
           })}
         />
-        <Tab.Screen name="VehicleManage"  options={{
+        <Tab.Screen
+          name="VehicleManage"
+          options={{
             tabBarIcon: ({}) => <Ionicons name="car"></Ionicons>,
-          }} component={VehicleManage} />
+          }}
+          component={VehicleManage}
+        />
       </Tab.Navigator>
-      <Modal
-        visible={visibleModal}
-        transparent={true}
-        onRequestClose={removeModalClick}
-      >
+      <Modal visible={visibleModal} onRequestClose={removeModalClick}>
         <View style={styles.viewStyleOne}>
           <View style={styles.viewStyleTwo}>
-            <TextInput placeholder="Enter Your Email"> </TextInput>
+            <TextInput
+              placeholder=" Enter Your Email "
+              onChangeText={inputChangeHandler.bind(this, "email")}
+            >
+              {" "}
+            </TextInput>
           </View>
           <View style={styles.viewStyleTwo}>
-            <TextInput placeholder="Enter Your Password"> </TextInput>
+            <TextInput
+              placeholder=" Enter Your Password "
+              onChangeText={inputChangeHandler.bind(this, "password")}
+            >
+              {" "}
+            </TextInput>
           </View>
         </View>
-        <Button onPress={removeModalClick} title="Close Modal"></Button>
+        <Button onPress={checkRoleClick} title="Check Role"></Button>
       </Modal>
     </View>
   );
