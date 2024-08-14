@@ -12,6 +12,7 @@ import CategoryManage from "./Category/CategoryManage";
 import VehicleManage from "./VehicleScreens/VehicleManage";
 import Home from "./Home";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useCheckIsTrueUserMutation } from "../Apis/accountApi";
 
@@ -19,13 +20,14 @@ function HomePage() {
   const Tab = createBottomTabNavigator();
   const [visibleModal, setVisibleModal] = useState(false);
   const [CheckIsTrueUser] = useCheckIsTrueUserMutation();
+  const [checkUser, setCheckUser] = useState(false);
+  const Navigation = useNavigation();
   const [userModel, setUserModel] = useState({
     email: "",
     password: "",
   });
 
   const handleCategoryClick = () => {
-    console.log("trigger handleCategoryClick");
     setVisibleModal(true);
   };
 
@@ -36,16 +38,20 @@ function HomePage() {
         [inputIdentifier]: enteredValue,
       };
     });
-    console.log("usermodel");
-
-    console.log(userModel.email);
   }
-  const checkRoleClick = () => {
+  const checkRoleClick = async () => {
     const loginModel = {
       email: userModel.email,
       password: userModel.password,
     };
-    CheckIsTrueUser(loginModel).then((value) => console.log(value));
+    const result = await CheckIsTrueUser(loginModel);
+    const isUserAuthorized = result.data;
+
+    if (!isUserAuthorized) {
+      Navigation.navigate("Home");
+      Alert.alert("You can not entry this page. UNAUTHORIZED!");
+    }
+    setCheckUser(false);
     setVisibleModal(false);
   };
 
