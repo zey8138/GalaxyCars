@@ -9,12 +9,15 @@ import {
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import CategoryManage from "./Category/CategoryManage";
-import VehicleManage from "./VehicleScreens/VehicleManage";
 import Home from "./Home";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useCheckIsTrueUserMutation } from "../Apis/accountApi";
+import VehicleManage from "./VehicleScreens/VehicleManage";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import VehicleAddOrUpdate from "./VehicleScreens/VehicleAddOrUpdate";
+import VehicleCRUD from "./VehicleScreens/VehicleCRUD";
 
 function HomePage() {
   const Tab = createBottomTabNavigator();
@@ -22,6 +25,7 @@ function HomePage() {
   const [CheckIsTrueUser] = useCheckIsTrueUserMutation();
   const [checkUser, setCheckUser] = useState(false);
   const Navigation = useNavigation();
+  const Stack = createNativeStackNavigator();
   const [userModel, setUserModel] = useState({
     email: "",
     password: "",
@@ -43,7 +47,6 @@ function HomePage() {
   const GoBack = () => {
     Navigation.navigate("Home");
     setVisibleModal(false);
-
   };
   const checkRoleClick = async () => {
     const loginModel = {
@@ -51,6 +54,7 @@ function HomePage() {
       password: userModel.password,
     };
     const result = await CheckIsTrueUser(loginModel);
+    console.log(result);
     const isUserAuthorized = result.data;
 
     if (!isUserAuthorized) {
@@ -84,11 +88,11 @@ function HomePage() {
           })}
         />
         <Tab.Screen
-          name="VehicleManage"
+          name="VehicleCRUD"
           options={{
             tabBarIcon: ({}) => <Ionicons name="car"></Ionicons>,
           }}
-          component={VehicleManage}
+          component={VehicleCRUD}
           listeners={({ navigation, route }) => ({
             tabPress: (e) => {
               handleModalClick();

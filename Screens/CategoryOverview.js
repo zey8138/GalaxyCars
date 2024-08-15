@@ -18,10 +18,7 @@ export default function CategoryOverview() {
         name="VehicleDetail"
         component={VehicleDetail}
       ></Stack.Screen>
-      <Stack.Screen
-        name="MyTabs"
-        component={MyTabs}
-      ></Stack.Screen>
+      <Stack.Screen name="MyTabs" component={MyTabs}></Stack.Screen>
     </Stack.Navigator>
   );
 }

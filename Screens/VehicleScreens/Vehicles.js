@@ -10,9 +10,6 @@ function Vehicles({ route, navigation }) {
     useGetVehiclesByCategoryIdQuery(selectedCategoryId);
   const Navigation = useNavigation();
 
-  console.log("data");
-  console.log(data);
-
   const handlePressClick = (id) => {
     Navigation.navigate("VehicleDetail", {
       vehicleId: id,
