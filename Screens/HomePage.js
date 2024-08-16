@@ -25,7 +25,6 @@ function HomePage() {
   const [CheckIsTrueUser] = useCheckIsTrueUserMutation();
   const [checkUser, setCheckUser] = useState(false);
   const Navigation = useNavigation();
-  const Stack = createNativeStackNavigator();
   const [userModel, setUserModel] = useState({
     email: "",
     password: "",
@@ -67,7 +66,7 @@ function HomePage() {
 
   return (
     <View style={{ flex: 1 }}>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Navigator screenOptions={{ headerShown: true }}>
         <Tab.Screen
           name="Home"
           component={Home}

@@ -6,8 +6,6 @@ function VehicleDetail({ route, navigation }) {
   const vehicleId = route.params?.vehicleId;
   const { data, isLoading } = useGetVehicleByIdQuery(vehicleId);
 
- 
-
   if (isLoading) {
     return (
       <View>
@@ -26,13 +24,11 @@ function VehicleDetail({ route, navigation }) {
         <Title style={styles.Title}> {data.brand} </Title>
         <Title style={styles.Title}> {data.model} </Title>
         <Paragraph style={styles.PriceParagraph}>
-          {" "}
-          $ {data.price.toFixed(2)}{" "}
+          $ {data.price.toFixed(2)}
         </Paragraph>
         <Paragraph style={styles.Paragraph}> {data.description} </Paragraph>
         <Paragraph style={styles.ModelParagraph}>
-          {" "}
-          Model Year : {data.modelYear}{" "}
+          Model Year : {data.modelYear}
         </Paragraph>
       </Card.Content>
     </Card>
