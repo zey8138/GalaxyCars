@@ -18,6 +18,7 @@ import VehicleManage from "./VehicleScreens/VehicleManage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import VehicleAddOrUpdate from "./VehicleScreens/VehicleAddOrUpdate";
 import VehicleCRUD from "./VehicleScreens/VehicleCRUD";
+import CategoryCRUD from "./Category/CategoryCRUD";
 
 function HomePage() {
   const Tab = createBottomTabNavigator();
@@ -74,12 +75,13 @@ function HomePage() {
             tabBarIcon: ({}) => <Ionicons name="planet"></Ionicons>,
           }}
         />
+        
         <Tab.Screen
-          name="CategoryManage"
+          name="CategoryCRUD"
           options={{
             tabBarIcon: ({}) => <Ionicons name="clipboard"></Ionicons>,
           }}
-          component={CategoryManage}
+          component={CategoryCRUD}
           listeners={({ navigation, route }) => ({
             tabPress: (e) => {
               handleModalClick();
