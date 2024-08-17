@@ -6,17 +6,19 @@ import {
 } from "../../Apis/vehicleApi";
 import { TextInput } from "react-native-paper";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 function VehicleAddOrUpdate({ route, navigation }) {
   const vehicleId = route.params?.vehicleId;
   const { data, isLoading } = useGetVehicleByIdQuery(vehicleId);
+  const Navigation = useNavigation();
   const [UpdateVehicle] = useUpdateVehicleMutation();
   const [CreateVehicle] = useCreateVehicleMutation();
   const [vehicleModel, setVehicleModel] = useState({
     brand: data ? data.brand : "",
     model: data ? data.model : "",
     modelYear: data ? data.modelYear : "",
-    price: data ? data.price : "",
+    price: data ? data.price : 0,
     imageUrl: data ? data.imageUrl : "",
     description: data ? data.description : "",
     categoryId: data ? data.categoryId : "",
@@ -24,7 +26,7 @@ function VehicleAddOrUpdate({ route, navigation }) {
   if (isLoading) {
     return (
       <View>
-        <Text> ...Loading Vehicle </Text>
+        <Text> ...Loading Vehicles </Text>
       </View>
     );
   }
@@ -37,11 +39,36 @@ function VehicleAddOrUpdate({ route, navigation }) {
     });
   }
 
-  const handleVehicleHandler = () => {
+  const handleVehicleClick = async () => {
     if (vehicleId !== undefined) {
-      UpdateVehicle();
+      console.log("vehicleModel");
+      console.log(vehicleModel);
+      setVehicleModel({
+        brand: data.brand,
+        model: data.model,
+        modelYear: data.modelYear,
+        price: data.price,
+        imageUrl: data.imageUrl,
+        description: data.description,
+        categoryId: data.categoryId,
+      });
+      const updateVehicleModel = {
+        vehicleId: vehicleId,
+        vehicleModel: {
+          brand: vehicleModel.brand,
+          model: vehicleModel.model,
+          modelYear: vehicleModel.modelYear,
+          price: vehicleModel.price,
+          imageUrl: vehicleModel.imageUrl,
+          description: vehicleModel.description,
+          categoryId: vehicleModel.categoryId,
+        },
+      };
+      var response = await UpdateVehicle(updateVehicleModel);
+      Navigation.goBack();
     } else {
-      CreateVehicle();
+      CreateVehicle(vehicleModel);
+      Navigation.goBack();
     }
   };
 
@@ -83,7 +110,8 @@ function VehicleAddOrUpdate({ route, navigation }) {
         <TextInput
           style={styles.input}
           placeholder="Price"
-          defaultValue={data ? data.price : ""}
+          defaultValue={data ? data.price.toString() : ""}
+          keyboardType="numeric"
           onChangeText={(value) => inputChangeHandler("price", value)}
         ></TextInput>
       </View>
@@ -112,7 +140,7 @@ function VehicleAddOrUpdate({ route, navigation }) {
         ></TextInput>
       </View>
       <View style={styles.buttonContainer}>
-        <Button title="Save"></Button>
+        <Button title="Save" onPress={handleVehicleClick}></Button>
       </View>
     </View>
   );
