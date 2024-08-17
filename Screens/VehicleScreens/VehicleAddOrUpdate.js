@@ -9,6 +9,11 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 function VehicleAddOrUpdate({ route, navigation }) {
+
+  console.log("trigger vehicle")
+
+
+
   const vehicleId = route.params?.vehicleId;
   const { data, isLoading } = useGetVehicleByIdQuery(vehicleId);
   const Navigation = useNavigation();

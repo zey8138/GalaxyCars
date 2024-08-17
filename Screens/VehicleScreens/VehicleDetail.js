@@ -4,6 +4,9 @@ import { Card, Title, Paragraph } from "react-native-paper";
 
 function VehicleDetail({ route, navigation }) {
   const vehicleId = route.params?.vehicleId;
+
+  console.log("trigger vehicleıd", vehicleId);
+
   const { data, isLoading } = useGetVehicleByIdQuery(vehicleId);
 
   if (isLoading) {

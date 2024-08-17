@@ -86,6 +86,7 @@ function HomePage() {
             },
           })}
         />
+
         <Tab.Screen
           name="VehicleCRUD"
           options={{
