@@ -39,6 +39,12 @@ export const categoryApi = createApi({
         method: "GET",
       }),
     }),
+    GetCategoryById: builder.query({
+      query: (categoryId) => ({
+        url: `Category/${categoryId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -48,5 +54,6 @@ export const {
   useRemoveCategoryMutation,
   useUpdateCategoryMutation,
   useGetVehiclesByCategoryIdQuery,
+  useGetCategoryByIdQuery,
 } = categoryApi;
 export default categoryApi;
