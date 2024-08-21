@@ -5,27 +5,36 @@ import {
   StyleSheet,
   FlatList,
   Button,
+  ActivityIndicator,
 } from "react-native";
 import { Card, Title, Paragraph } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import { useGetAllCategoryQuery } from "../../Apis/categoryApi";
+import {
+  useGetAllCategoryQuery,
+  useRemoveCategoryMutation,
+} from "../../Apis/categoryApi";
 import { useState } from "react";
 
 function CategoryManage() {
   const { data, isLoading } = useGetAllCategoryQuery();
   const [category, setCategory] = useState();
+  const [RemoveCategory] = useRemoveCategoryMutation();
   const Navigation = useNavigation();
 
   if (isLoading) {
     return (
       <View>
-        <Text> ...Loading </Text>
+        <ActivityIndicator size="large" color="#00ff00" />
       </View>
     );
   }
 
   const handleCategoryClick = (categoryId) => {
     Navigation.navigate("CategoryAddOrUpdate", { categoryId: categoryId });
+  };
+  const RemoveCategoryHandler = async (categoryId) => {
+    console.log("trigger remove category handler");
+    var response = await RemoveCategory(categoryId);
   };
 
   return (
@@ -40,6 +49,12 @@ function CategoryManage() {
                 <Title> {item.categoryName} </Title>
                 <Paragraph>Description : {item.categoryDescription} </Paragraph>
               </Card.Content>
+              <View style={styles.button}>
+                <Button
+                  title="Remove Category"
+                  onPress={() => RemoveCategoryHandler(item.id)}
+                ></Button>
+              </View>
             </Card>
           </Pressable>
         )}
@@ -58,5 +73,8 @@ const styles = StyleSheet.create({
     margin: 16,
     alignItems: "center",
     backgroundColor: "orange",
+  },
+  button: {
+    alignContent: "center",
   },
 });

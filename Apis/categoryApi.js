@@ -3,15 +3,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://f24a-31-206-0-60.ngrok-free.app/api/",
+    baseUrl: "https://aa95-31-206-0-60.ngrok-free.app/api/",
   }),
-
+  tagTypes: ["category"],
   endpoints: (builder) => ({
     GetAllCategory: builder.query({
       query: () => ({
         url: "Category",
         method: "GET",
       }),
+      providesTags: ["category"],
     }),
     CreateCategory: builder.mutation({
       query: (categoryModel) => ({
@@ -19,12 +20,14 @@ export const categoryApi = createApi({
         method: "POST",
         body: categoryModel,
       }),
+      invalidatesTags: ["category"],
     }),
     RemoveCategory: builder.mutation({
       query: (categoryId) => ({
         url: `Category/${categoryId}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["category"],
     }),
     UpdateCategory: builder.mutation({
       query: (model) => ({
@@ -32,18 +35,21 @@ export const categoryApi = createApi({
         method: "PUT",
         body: model.categoryModel,
       }),
+      invalidatesTags: ["category"],
     }),
     GetVehiclesByCategoryId: builder.query({
       query: (categoryId) => ({
         url: `Category/GetVehicles/${categoryId}`,
         method: "GET",
       }),
+      providesTags: ["category"],
     }),
     GetCategoryById: builder.query({
       query: (categoryId) => ({
         url: `Category/${categoryId}`,
         method: "GET",
       }),
+      providesTags: ["category"],
     }),
   }),
 });

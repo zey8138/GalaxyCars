@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
 import { useGetVehicleByIdQuery } from "../../Apis/vehicleApi";
 import { Card, Title, Paragraph } from "react-native-paper";
 

@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  ActivityIndicator,
+} from "react-native";
 import {
   useCreateVehicleMutation,
   useGetVehicleByIdQuery,
@@ -26,7 +32,7 @@ function VehicleAddOrUpdate({ route, navigation }) {
   if (isLoading) {
     return (
       <View>
-        <Text> ...Loading Vehicles </Text>
+        <ActivityIndicator size="large" color="#00ff00" />
       </View>
     );
   }

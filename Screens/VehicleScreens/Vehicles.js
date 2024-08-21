@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, ActivityIndicator } from "react-native";
 import { useGetVehiclesByCategoryIdQuery } from "../../Apis/categoryApi";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
@@ -19,7 +19,7 @@ function Vehicles({ route, navigation }) {
   if (isLoading) {
     return (
       <>
-        <Text> Loading... </Text>
+        <ActivityIndicator size="large" color="#00ff00" />
       </>
     );
   }

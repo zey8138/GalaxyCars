@@ -1,4 +1,10 @@
-import { Text, View, StyleSheet, FlatList } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { useGetAllCategoryQuery } from "../Apis/categoryApi";
 import CategoryItem from "./CategoryItem";
 
@@ -9,7 +15,7 @@ function CategoryList() {
   if (isLoading) {
     return (
       <View>
-        <Text> Loading... </Text>
+        <ActivityIndicator size="large" color="#00ff00" />
       </View>
     );
   }
@@ -21,7 +27,7 @@ function CategoryList() {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <CategoryItem item={item}></CategoryItem>}
       ></FlatList>
-      <Text> Loading </Text>
+      <ActivityIndicator size="large" color="#00ff00" />
     </>
   );
 }

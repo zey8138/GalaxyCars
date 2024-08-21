@@ -7,6 +7,7 @@ import {
   Image,
   Button,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import {
   useGetAllVehicleQuery,
@@ -23,7 +24,7 @@ function VehicleManage() {
   if (isLoading) {
     return (
       <View>
-        <Text> ...Loading Vehicles </Text>
+        <ActivityIndicator size="large" color="#00ff00" />
       </View>
     );
   }
